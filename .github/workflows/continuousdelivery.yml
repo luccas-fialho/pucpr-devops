@@ -15,6 +15,5 @@ jobs:
       - name: Continuous Delivery Simulation
         uses: actions/upload-artifact@v4
         with:
-          name: classnotes.zip
-          path: |
-            '**.md'
+          name: classnotes
+          path: '**/*.md'

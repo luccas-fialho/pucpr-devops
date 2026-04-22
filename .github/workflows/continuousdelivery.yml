@@ -22,8 +22,23 @@ jobs:
         with:
           extra_args: --results=verified,unknown
 
+  vitest:
+    name: Vitest - CI/CD
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/jod"
+
+      - run: "npm ci"
+
+      - run: "npm test"
+
   deploy:
-    needs: build
+    needs: [build, test]
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:

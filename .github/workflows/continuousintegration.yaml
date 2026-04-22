@@ -1,0 +1,36 @@
+name: CI - Secret and Tests
+on:
+  pull_request:
+    branches:
+      - main
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Secret Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Secret Scanning
+        uses: trufflesecurity/trufflehog@main
+        with:
+          extra_args: --results=verified,unknown
+
+  vitest:
+    name: Vitest - CI/CD
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+
+      - run: "npm ci"
+
+      - run: "npm test"

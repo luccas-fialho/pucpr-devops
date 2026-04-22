@@ -5,6 +5,7 @@ on:
       - main
 permissions:
   contents: read
+
 jobs:
   build:
     name: Secret Scanning

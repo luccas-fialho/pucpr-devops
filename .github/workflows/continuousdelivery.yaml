@@ -3,6 +3,8 @@ name: CD - Notifications and Docker Image Push
 on:
   push:
     branches: [main]
+permissions:
+  contents: read
 
 jobs:
   deploy:
